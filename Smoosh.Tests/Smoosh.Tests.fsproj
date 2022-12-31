@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>Smoosh.Tests</RootNamespace>
+        <NoWarn>9</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Smoosh.Latency\Smoosh.Latency.fsproj" />
+      <ProjectReference Include="..\Smoosh\Smoosh.fsproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Expecto.FsCheck" Version="9.0.4" />
+      <PackageReference Include="FsCheck" Version="2.16.5" />
+    </ItemGroup>
+
+</Project>

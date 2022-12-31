@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Smoosh", "Smoosh\Smoosh.fsproj", "{805C2C2F-5065-4CB0-8955-4002E5C1BFD1}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Smoosh.Tests", "Smoosh.Tests\Smoosh.Tests.fsproj", "{8F795CBE-6B51-446C-A643-CC05A53F6CF8}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Smoosh.Latency", "Smoosh.Latency\Smoosh.Latency.fsproj", "{15CEBBD3-3E3D-4CCF-81FF-A31603F66619}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Smoosh.Shared", "Smoosh.Shared\Smoosh.Shared.fsproj", "{95A942F8-C2D8-411A-8EA8-7B2DD6A9A1E1}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Smoosh.Benchmarks", "Smoosh.Benchmarks\Smoosh.Benchmarks.fsproj", "{911187CF-A8F9-430A-B5D9-85A12B0544CD}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Smoosh.TestingGrounds", "Smoosh.TestingGrounds\Smoosh.TestingGrounds.fsproj", "{29EF498B-75E8-4ED5-B551-7C877846E9B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{805C2C2F-5065-4CB0-8955-4002E5C1BFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805C2C2F-5065-4CB0-8955-4002E5C1BFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805C2C2F-5065-4CB0-8955-4002E5C1BFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805C2C2F-5065-4CB0-8955-4002E5C1BFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F795CBE-6B51-446C-A643-CC05A53F6CF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F795CBE-6B51-446C-A643-CC05A53F6CF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F795CBE-6B51-446C-A643-CC05A53F6CF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F795CBE-6B51-446C-A643-CC05A53F6CF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CEBBD3-3E3D-4CCF-81FF-A31603F66619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CEBBD3-3E3D-4CCF-81FF-A31603F66619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CEBBD3-3E3D-4CCF-81FF-A31603F66619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CEBBD3-3E3D-4CCF-81FF-A31603F66619}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A942F8-C2D8-411A-8EA8-7B2DD6A9A1E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A942F8-C2D8-411A-8EA8-7B2DD6A9A1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A942F8-C2D8-411A-8EA8-7B2DD6A9A1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A942F8-C2D8-411A-8EA8-7B2DD6A9A1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{911187CF-A8F9-430A-B5D9-85A12B0544CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{911187CF-A8F9-430A-B5D9-85A12B0544CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{911187CF-A8F9-430A-B5D9-85A12B0544CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{911187CF-A8F9-430A-B5D9-85A12B0544CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29EF498B-75E8-4ED5-B551-7C877846E9B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29EF498B-75E8-4ED5-B551-7C877846E9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29EF498B-75E8-4ED5-B551-7C877846E9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29EF498B-75E8-4ED5-B551-7C877846E9B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

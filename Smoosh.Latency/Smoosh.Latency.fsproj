@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RootNamespace>Smoosh</RootNamespace>
+        <NoWarn>9</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Encoder.fs" />
+        <Compile Include="Decoder.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="TypeShape" Version="10.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Smoosh.Shared\Smoosh.Shared.fsproj" />
+      <ProjectReference Include="..\Smoosh\Smoosh.fsproj" />
+    </ItemGroup>
+
+</Project>
