@@ -85,10 +85,8 @@ let rec decoderBuilder =
     member _.Union shape (HKT.Unpackss fieldss) =
       let header_len = shape.UnionCases.Length |> bitsReqToStoreNumber
       HKT.pack (Dec (fun s ->
-        let bs = ResizeArray<bool>()
-        [|1..8-header_len|] |> Array.iter (fun _ -> bs.Add false)
-        [|1..header_len|] |> Array.iter (fun _ -> bs.Add (dBool s))
-        let idx = bs.ToArray () |> boolArrToByte |> int
+        let bs = Array.zeroCreate 8 |> Array.mapi (fun i x -> if i < 8 - header_len then x else dBool s)
+        let idx = bs |> boolArrToByte |> int
         let case = shape.UnionCases[idx]
         let mutable ret = case.CreateUninitialized ()
         if case.Arity <> 0 then for f in fieldss[idx] do ret <- f.Invoke (s, ret)
