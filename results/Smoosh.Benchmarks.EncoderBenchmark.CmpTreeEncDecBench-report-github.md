@@ -8,9 +8,9 @@ AMD Ryzen 5 3550H with Radeon Vega Mobile Gfx, 1 CPU, 8 logical and 4 physical c
 
 
 ```
-|       Method |        Mean |     Error |     StdDev | Ratio | RatioSD |
-|------------- |------------:|----------:|-----------:|------:|--------:|
-| Tree05BenchL |    37.65 μs |  0.751 μs |   1.482 μs |  1.00 |    0.00 |
-| Tree10BenchL | 1,270.21 μs | 25.968 μs |  75.750 μs | 33.53 |    2.62 |
-| Tree05BenchS |    93.75 μs |  1.848 μs |   3.857 μs |  2.50 |    0.12 |
-| Tree10BenchS | 3,406.15 μs | 66.905 μs | 109.926 μs | 91.04 |    4.25 |
+|       Method |         Mean |      Error |     StdDev |  Ratio | RatioSD |
+|------------- |-------------:|-----------:|-----------:|-------:|--------:|
+| Tree05BenchL |     9.940 μs |  0.1856 μs |  0.1645 μs |   1.00 |    0.00 |
+| Tree10BenchL |   350.989 μs |  5.6621 μs |  5.2963 μs |  35.30 |    0.73 |
+| Tree05BenchS |    60.323 μs |  0.9711 μs |  0.9084 μs |   6.07 |    0.17 |
+| Tree10BenchS | 2,194.997 μs | 41.3432 μs | 44.2368 μs | 220.47 |    5.77 |
