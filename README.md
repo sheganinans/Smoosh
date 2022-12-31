@@ -1,5 +1,9 @@
 # Smoosh: Every last bit out of your messaging protocol!
 
+[`Smoosh` Nuget](https://www.nuget.org/packages/Smoosh/)
+
+[`Smoosh.Latency` Nuget](https://www.nuget.org/packages/Smoosh.Latency/)
+
 ## Bit oriented
 
 If your type fits in a bit, it's encoded as a bit. Some types are even encoded as *zero* bits!
