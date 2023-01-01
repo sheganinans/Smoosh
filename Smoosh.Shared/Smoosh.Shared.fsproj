@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RootNamespace>Smoosh</RootNamespace>
         <NoWarn>9</NoWarn>
+        <Version>1.0.2</Version>
     </PropertyGroup>
 
     <ItemGroup>
