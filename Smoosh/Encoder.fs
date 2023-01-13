@@ -52,7 +52,7 @@ let eStr (enc : string -> byte []) (xs : string) =
       yield! bs.Length |> uint32 |> eSmooshedUint32
       Bytes bs
     }
-    
+
 let rec internal encoderBuilder =
   { new ITypeBuilder<Encoder, Encoder> with
     member _.Unit () = HKT.pack (Enc (fun _ x -> seq { Bools [||] }))
@@ -127,8 +127,8 @@ let rec internal encoderBuilder =
           seq {
             yield! xs.Length |> uint32 |> eSmooshedUint32
             match ty.GetElementType () with
-            | ty when ty = typeof<bool> -> Bools (xs |> Unsafe.As<bool []>)
-            | ty when ty = typeof<byte> -> Bytes (xs |> Unsafe.As<byte []>)
+            | ty when ty = typeof<bool> -> Bools (xs |> unbox<bool []>)
+            | ty when ty = typeof<byte> -> Bytes (xs |> unbox<byte []>)
             | _ -> for x in xs do yield! enc.Invoke (a, x)
           }))
 
@@ -169,7 +169,7 @@ let rec internal encoderBuilder =
     member _.Record shape (HKT.Unpacks fields) =
       let fns : ('a -> Stream seq) [] =
         Array.zip fields shape.Fields
-        |> Array.map (fun (f, sf) -> 
+        |> Array.map (fun (f, sf) ->
             let attrs =
               sf.MemberInfo.CustomAttributes
               |> Array.ofSeq
@@ -182,7 +182,7 @@ let rec internal encoderBuilder =
               then fun x -> f.Invoke (Some   Utf8, x)
               else fun x -> f.Invoke (Some Smoosh, x)
             | _ -> raise (Exception "Cannot have both attributes"))
-        
+
       HKT.pack (Enc (fun _ x -> fns |> Seq.collect (fun f -> f x)))
 
     member _.Union shape (HKT.Unpackss fieldss) =
@@ -211,7 +211,7 @@ let rec internal encoderBuilder =
 
     member _.Delay f = HKT.pack (Enc (fun a x -> seq { yield! (HKT.unpack f.Value).Invoke (a, x) }))
   }
-  
+
 let foldStream (xs : Stream seq) : byte seq =
   let mutable acc = 0x0uy
   let mutable idx = 0

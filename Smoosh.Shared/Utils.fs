@@ -51,4 +51,4 @@ let inline internal bytes bs = Seq.chunkBySize 8 bs
 
 let inline internal asBytes bs = bs |> bytes |> Seq.map boolArrToByte |> Array.ofSeq
 
-let inline bitsReqToStoreNumber (i : int) = int (ceil (Math.Log2 i))
+let inline bitsReqToStoreNumber (i : int) = int (ceil (Math.Log(i, 2)))
