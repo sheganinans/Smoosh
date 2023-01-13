@@ -70,8 +70,8 @@ let rec mkTree d =
 
 let tree = mkTree 12
 
-let treeEnc = mkMTUIgnoringEncoder<Tree> ()
-let treeDec = mkMTUIgnoringDecoder<Tree> ()
+let treeEnc = mkMTUIgnoringEncoder<Tree> 6000
+let treeDec = mkDecoder<Tree> ()
 
 let eTree = tree |> treeEnc |> Array.ofSeq
 
@@ -84,3 +84,5 @@ eTree |> treeDec |> fun dTree -> printfn $"%i{eTree.Length}: %b{dTree = tree}"
 //mkEncoder<byte []>() [|0xffuy;0x00uy;0xffuy|] |> Array.ofSeq |> BitConverter.ToString |> printfn "%s"
 
 //mkEncoder<Person> () ace |> Array.ofSeq |> mkDecoder<Person> () |> fun v -> printfn $"%A{v}"
+
+Map.empty.Add ("foo", 345) |> mkEncoder<Map<string, int>> () |> mkDecoder<Map<string, int>> () |> printfn "%A"
