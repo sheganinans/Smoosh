@@ -21,7 +21,7 @@ type FieldDec<'a, 'b> = Func<State, 'a, 'b>
 type Decoder = static member Assign(_ : App<Decoder, 'a>, _ : Dec<'a>) = ()
 type FieldDecoder = static member Assign(_ : App<FieldDecoder, 'a>, _ : FieldDec<'a,'b>) = ()
 
-let rec decoderBuilder =
+let decoderBuilder =
   { new ITypeBuilder<Decoder, FieldDecoder> with
     member _.Unit () = HKT.pack (Dec (fun s -> ()))
     member _.Bool () = HKT.pack (Dec dBool)

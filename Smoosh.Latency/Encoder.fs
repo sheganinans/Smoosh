@@ -70,7 +70,7 @@ type Enc<'a> = Action<State, 'a>
 
 type Encoder = static member Assign(_ : App<Encoder, 'a>, _ : Enc<'a>) = ()
 
-let rec internal encoderBuilder =
+let internal encoderBuilder =
   { new ITypeBuilder<Encoder, Encoder> with
     member _.Unit () = HKT.pack (Enc (fun s x -> ()))
     member _.Bool () = HKT.pack (Enc eBool)

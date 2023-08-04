@@ -6,8 +6,8 @@ open System.Numerics
 open Expecto
 
 open Smoosh.Attributes
-open Smoosh.Latency.Encoder
-open Smoosh.Latency.Decoder
+open Smoosh.Encoder
+open Smoosh.Decoder
 
 let encTest (x : 'A) =
   try
@@ -15,8 +15,10 @@ let encTest (x : 'A) =
     let dec = mkDecoder<'A> ()
     let payload = enc x
     let decoded = dec (payload |> Array.ofSeq)
-    LanguagePrimitives.GenericEqualityER x decoded
-  with MessageLimitExceeded -> true
+    match decoded with
+    | Error _ -> false
+    | Ok decoded -> LanguagePrimitives.GenericEqualityER x decoded
+  with _ -> true
 
 type Tree =
   | Leaf
@@ -92,13 +94,14 @@ let properties =
     testProperty "float32 list encode" <| fun (x : float32 list) -> encTest x
     testProperty "float32 array encode" <| fun (x : float32 []) -> encTest x
     // https://github.com/dotnet/fsharp/issues/14507
-    //testProperty "float32 set encode" <| fun (x : float32 Set) -> encTest x
+    testProperty "float32 set encode" <| fun (x : float32 Set) -> encTest x
 
     testProperty "float encode" <| fun (x : float) -> encTest x
     testProperty "float list encode" <| fun (x : float list) -> encTest x
     testProperty "float array encode" <| fun (x : float []) -> encTest x
-    //testProperty "float set encode" <| fun (x : float Set) -> encTest x
-    
+    // https://github.com/dotnet/fsharp/issues/14507
+    testProperty "float set encode" <| fun (x : float Set) -> encTest x
+
     testProperty "decimal encode" <| fun (x : decimal) -> encTest x
     testProperty "decimal list encode" <| fun (x : decimal list) -> encTest x
     testProperty "decimal array encode" <| fun (x : decimal []) -> encTest x
@@ -143,6 +146,18 @@ let properties =
     testProperty "Tree" <| fun (x : Tree) -> encTest x
     testProperty "Person" <| fun (x : Person) -> encTest x
     testProperty "SmooshNums" <| fun (x : SmooshNums) -> encTest x
+
+    testProperty "Hash failure check" <| fun (x : Person) ->
+      try
+        let enc = mkEncoder<Person> ()
+        let dec = mkDecoder<Tree> ()
+        let payload = enc x
+        let decoded = dec (payload |> Array.ofSeq)
+        match decoded with
+        | Ok _ -> false
+        | Error _ -> true
+      with _ -> true
+
   ]
 
 Tests.runTests defaultConfig properties |> ignore

@@ -6,7 +6,7 @@ open Smoosh.Latency.Encoder
 type Nested =
   { UnWrap : Nested option }
   member this.Wrap = { UnWrap = Some this }
-      
+
 let NestedEx3 = { UnWrap = None }.Wrap.Wrap.Wrap.Wrap.Wrap.Wrap.Wrap.Wrap.Wrap.Wrap
 
 mkEncoder<Nested> () NestedEx3 |> Array.ofSeq |> BitConverter.ToString |> printfn "%s"
@@ -85,4 +85,11 @@ eTree |> treeDec |> fun dTree -> printfn $"%i{eTree.Length}: %b{dTree = tree}"
 
 //mkEncoder<Person> () ace |> Array.ofSeq |> mkDecoder<Person> () |> fun v -> printfn $"%A{v}"
 
-Map.empty.Add ("foo", 345) |> mkEncoder<Map<string, int>> () |> mkDecoder<Map<string, int>> () |> printfn "%A"
+//Map.empty.Add ("foo", 345) |> mkEncoder<Map<string, int>> () |> mkDecoder<Map<string, int>> () |> printfn "%A"
+
+
+open Smoosh.TypeHash
+
+let tyH = mkTyHash<string * int> ()
+
+printfn $"%A{tyH}"

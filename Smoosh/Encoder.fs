@@ -1,7 +1,6 @@
 ﻿module Smoosh.Encoder
 
 open System
-open System.Runtime.CompilerServices
 open System.Text
 
 open TypeShape.HKT
@@ -53,7 +52,7 @@ let eStr (enc : string -> byte []) (xs : string) =
       Bytes bs
     }
 
-let rec internal encoderBuilder =
+let internal encoderBuilder =
   { new ITypeBuilder<Encoder, Encoder> with
     member _.Unit () = HKT.pack (Enc (fun _ x -> seq { Bools [||] }))
     member _.Bool () = HKT.pack (Enc (fun _ x -> seq { Bools [|x|] }))
@@ -239,6 +238,14 @@ let foldStream (xs : Stream seq) : byte seq =
       | End -> yield acc
   }
 
+open Smoosh.TypeHash
+
 let mkEncoder<'t> () : 't -> byte seq =
   let action = TypeBuilder.fold encoderBuilder |> HKT.unpack
-  fun x -> action.Invoke (None, x) |> foldStream
+  fun x ->
+    seq {
+      use md5 = System.Security.Cryptography.MD5.Create ()
+      let ty =  mkTyHash<'t> () |> System.Text.Encoding.Unicode.GetBytes
+      yield! md5.ComputeHash ty
+      yield! action.Invoke (None, x) |> foldStream
+    }

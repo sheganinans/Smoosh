@@ -26,7 +26,7 @@ let private dSmooshedInt s =
   |> Array.ofList
   |> Array.rev
   |> Array.append (Array.zeroCreate (8 - acc.Length))
-  
+
 let inline private dSmooshedUint16 s = dSmooshedInt s |> Array.rev |> BitConverter.ToUInt16
 let inline private dSmooshedUint32 s = dSmooshedInt s |> Array.rev |> BitConverter.ToUInt32
 let inline private dSmooshedUint64 s = dSmooshedInt s |> Array.rev |> BitConverter.ToUInt64
@@ -36,7 +36,7 @@ let inline private dSmooshedInt32 s = dSmooshedUint32 s |> Int32.FromZigZag
 let inline private dSmooshedInt64 s = dSmooshedUint64 s |> Int64.FromZigZag
 
 
-let rec decoderBuilder =
+let decoderBuilder =
   { new ITypeBuilder<Decoder, FieldDecoder> with
     member _.Unit () = HKT.pack (Dec (fun _ _ -> ()))
     member _.Bool () = HKT.pack (Dec (fun _ -> dBool))
@@ -128,7 +128,7 @@ let rec decoderBuilder =
     member _.Record shape (HKT.Unpacks fields) =
       let fns =
         Array.zip fields shape.Fields
-        |> Array.map (fun (f, sf) -> 
+        |> Array.map (fun (f, sf) ->
             let attrs =
               sf.MemberInfo.CustomAttributes
               |> Array.ofSeq
@@ -141,9 +141,9 @@ let rec decoderBuilder =
               then fun s r -> f.Invoke (Some   Utf8, s, r)
               else fun s r -> f.Invoke (Some Smoosh, s, r)
             | _ -> raise (Exception "Cannot have both attributes"))
-      
+
       HKT.pack (Dec (fun a s -> fns |> Array.fold (fun r f -> f s r) (shape.CreateUninitialized ())))
-      
+
     member _.Union shape (HKT.Unpackss fieldss) =
       let header_len = shape.UnionCases.Length |> bitsReqToStoreNumber
       HKT.pack (Dec (fun a s ->
@@ -164,11 +164,23 @@ let rec decoderBuilder =
     member _.Delay f = HKT.pack (Dec (fun a s -> (HKT.unpack f.Value).Invoke (a,s)))
   }
 
-let mkDecoder<'t> () : byte [] -> 't =
+open Smoosh.TypeHash
+
+type DecodeError = HashDoesNotMatch
+
+let mkDecoder<'t> () : byte [] -> Result<'t, DecodeError> =
     let action = TypeBuilder.fold decoderBuilder |> HKT.unpack
     fun bs ->
-      action.Invoke (None, {
-        Arr    = bs
-        ArrIdx = 0
-        BitIdx = 0
-      })
+      use md5 = System.Security.Cryptography.MD5.Create ()
+      let ty =  mkTyHash<'t> () |> System.Text.Encoding.Unicode.GetBytes |> md5.ComputeHash
+      let hash = bs[..15]
+      if ty = hash
+      then
+        Ok
+          (action.Invoke (None, {
+            Arr    = bs[16..]
+            ArrIdx = 0
+            BitIdx = 0
+          }))
+      else Error HashDoesNotMatch
+

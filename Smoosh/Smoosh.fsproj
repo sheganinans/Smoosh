@@ -1,55 +1,51 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <Version>1.0.2</Version>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Include="Encoder.fs" />
-        <Compile Include="Decoder.fs" />
-        <Content Include="..\BENCHMARKS.md">
-          <Link>BENCHMARKS.md</Link>
-        </Content>
-        <Content Include="..\BENCHMARKS.COMPARE.md">
-          <Link>BENCHMARKS.COMPARE.md</Link>
-        </Content>
-        <Content Include="..\BENCHMARKS.LATENCY.md">
-          <Link>BENCHMARKS.LATENCY.md</Link>
-        </Content>
-        <Content Include="..\IMPLEMENTATION_NOTES.md">
-          <Link>IMPLEMENTATION_NOTES.md</Link>
-        </Content>
-        <Content Include="..\README.md">
-          <Link>README.md</Link>
-        </Content>
-        <Content Include="..\SAMPLES.md">
-          <Link>SAMPLES.md</Link>
-        </Content>
-        <Content Include="..\SPEC.md">
-          <Link>SPEC.md</Link>
-        </Content>
-        <Content Include="..\SPEC.LATENCY.md">
-          <Link>SPEC.LATENCY.md</Link>
-        </Content>
-        <Content Include="..\TODO.md">
-          <Link>TODO.md</Link>
-        </Content>
-        <Content Include="..\.editorconfig">
-          <Link>.editorconfig</Link>
-        </Content>
-        <Content Include="..\.gitignore">
-          <Link>.gitignore</Link>
-        </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="TypeShape" Version="10.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Smoosh.Shared\Smoosh.Shared.fsproj" />
-    </ItemGroup>
-
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0;netstandard2.1</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>1.0.2</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="TypeHash.fs" />
+    <Compile Include="Encoder.fs" />
+    <Compile Include="Decoder.fs" />
+    <Content Include="..\BENCHMARKS.md">
+      <Link>BENCHMARKS.md</Link>
+    </Content>
+    <Content Include="..\BENCHMARKS.COMPARE.md">
+      <Link>BENCHMARKS.COMPARE.md</Link>
+    </Content>
+    <Content Include="..\BENCHMARKS.LATENCY.md">
+      <Link>BENCHMARKS.LATENCY.md</Link>
+    </Content>
+    <Content Include="..\IMPLEMENTATION_NOTES.md">
+      <Link>IMPLEMENTATION_NOTES.md</Link>
+    </Content>
+    <Content Include="..\README.md">
+      <Link>README.md</Link>
+    </Content>
+    <Content Include="..\SAMPLES.md">
+      <Link>SAMPLES.md</Link>
+    </Content>
+    <Content Include="..\SPEC.md">
+      <Link>SPEC.md</Link>
+    </Content>
+    <Content Include="..\SPEC.LATENCY.md">
+      <Link>SPEC.LATENCY.md</Link>
+    </Content>
+    <Content Include="..\TODO.md">
+      <Link>TODO.md</Link>
+    </Content>
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
+    <Content Include="..\.gitignore">
+      <Link>.gitignore</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="TypeShape" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Smoosh.Shared\Smoosh.Shared.fsproj" />
+  </ItemGroup>
 </Project>
