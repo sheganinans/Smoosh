@@ -242,10 +242,10 @@ open Smoosh.TypeHash
 
 let mkEncoder<'t> () : 't -> byte seq =
   let action = TypeBuilder.fold encoderBuilder |> HKT.unpack
+  use md5 = System.Security.Cryptography.MD5.Create ()
+  let tyHash =  mkTyHash<'t> () |> System.Text.Encoding.Unicode.GetBytes |> md5.ComputeHash
   fun x ->
     seq {
-      use md5 = System.Security.Cryptography.MD5.Create ()
-      let ty =  mkTyHash<'t> () |> System.Text.Encoding.Unicode.GetBytes
-      yield! md5.ComputeHash ty
+      yield! tyHash
       yield! action.Invoke (None, x) |> foldStream
     }
